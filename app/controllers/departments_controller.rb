@@ -12,5 +12,11 @@ class DepartmentsController < ApplicationController
 
   def create
     @department = Department.new(permitted_params(:department))
+    # byebug
+    if @department.save
+      redirect_to departments_url
+    else
+      render action: 'new'
+    end
   end
 end

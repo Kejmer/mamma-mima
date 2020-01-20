@@ -1,0 +1,7 @@
+pl:
+  activerecord:
+    attributes:
+      department:
+        city: Miasto
+        district: Dzielnica
+        street: Ulica

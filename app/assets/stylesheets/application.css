@@ -16,4 +16,31 @@
 
 textarea.form-control {
   height: 33px;
+  margin-bottom: 18px;
+}
+
+.btn-glow {
+  background: linear-gradient(#d2ff52, #91e842);
+}
+
+.content.wide-content {
+  margin-left: 0;
+  border-radius: 0;
+}
+
+.content {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  padding-top: 5px;
+
+  min-width: 400px;
+  min-height: 620px;
+  overflow: visible;
+  position: relative;
+  background: #fff;
+}
+
+#pad-wrapper {
+  padding: 0 17px 20px;
+  margin-top: 22px;
 }
