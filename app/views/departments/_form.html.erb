@@ -1,0 +1,16 @@
+<%= form_with model: @department do |f| %>
+  <div class="row">
+    <div class="col-sm-3">
+      <%= f.label :city %>
+      <%= f.text_area :city, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :district %>
+      <%= f.text_area :district, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :street %>
+      <%= f.text_area :street, :class => 'form-control' %>
+    </div>
+  </div>
+<% end %>

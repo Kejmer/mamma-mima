@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+textarea.form-control {
+  height: 33px;
+}

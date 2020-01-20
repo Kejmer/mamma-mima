@@ -4,5 +4,9 @@ Rails.application.routes.draw do
   # match "/test", :to => "test#index", :via => :get
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  resources :product
+  resources :products
+
+  resources :departments
+
+
 end

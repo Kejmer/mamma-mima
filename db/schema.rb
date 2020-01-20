@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_103913) do
+ActiveRecord::Schema.define(version: 2020_01_14_174444) do
+
+  create_table "availability", id: false, force: :cascade do |t|
+    t.integer "ammount", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "department_id"
+    t.integer "product_id"
+  end
 
   create_table "departments", force: :cascade do |t|
     t.string "city", null: false
@@ -23,9 +31,11 @@ ActiveRecord::Schema.define(version: 2020_01_14_103913) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "availability", "departments"
+  add_foreign_key "availability", "products"
 end
