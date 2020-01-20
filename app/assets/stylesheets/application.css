@@ -15,12 +15,23 @@
  */
 
 textarea.form-control {
-  height: 33px;
+  height: 39px;
   margin-bottom: 18px;
+  resize: none;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+.form-control {
+  height: 34px;
+  padding: 6px 12px;
+}
+
+.btn-glow.save {
+  background: linear-gradient(#d2ff52, #91e842);
 }
 
 .btn-glow {
-  background: linear-gradient(#d2ff52, #91e842);
+  background: linear-gradient(#93cede, #49a5bf);
 }
 
 .content.wide-content {
@@ -43,4 +54,12 @@ textarea.form-control {
 #pad-wrapper {
   padding: 0 17px 20px;
   margin-top: 22px;
+}
+
+table {
+  text-align: center;
+}
+
+table tr {
+  border-bottom: 1px solid #DDD;
 }

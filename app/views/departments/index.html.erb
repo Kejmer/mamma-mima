@@ -1,1 +1,36 @@
-<div> index Oddziałów </div>
+<div class="content wide-content">
+
+  <div id="pad-wrapper">
+
+    <div class="row">
+      <%= link_to 'Nowy oddział', new_department_path, :class => 'btn-glow btn blue' %>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="col-sm-3">Miasto</th>
+          <th class="col-sm-2">Dzielnica</th>
+          <th class="col-sm-3">Street</th>
+          <th class="col-sm-2">Przychody</th>
+          <th class="col-sm-2">Wydatki</th>
+          <th class="col-sm-2">Dochód</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @departments.each do |dept| %>
+          <tr>
+            <td><%= dept.city %></td>
+            <td><%= dept.district %></td>
+            <td><%= dept.street %></td>
+            <td><%= dept.profits %></td>
+            <td><%= dept.expenses %></td>
+            <td><%= dept.profits - dept.expenses %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+

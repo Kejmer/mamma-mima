@@ -1,6 +1,7 @@
 class DepartmentsController < ApplicationController
 
   def index
+    @departments = Department.order(city: :asc)
   end
 
   def show
