@@ -4,9 +4,9 @@ class Department < ApplicationRecord
 
   validates :city, :street, presence: true
 
-  after_create :create_empty_products
+  after_create :create_new_associations
 
-  def create_empty_products
+  def create_new_associations
     products = Product.all
     products.each do |p|
       Availability.create!(ammount: 0, product: p, department: self)

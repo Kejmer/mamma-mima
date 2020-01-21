@@ -1,1 +1,26 @@
-<div>PRODUCT INDEX</div>
+<div class="content wide-content">
+
+  <div id="pad-wrapper">
+
+    <div class="row">
+      <%= link_to 'Nowy składnik', new_product_path, :class => 'btn-glow btn blue' %>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="col-sm-3">Produkt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |p| %>
+          <tr>
+            <td><%= p.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
