@@ -9,13 +9,15 @@
     <table>
       <thead>
         <tr>
-          <th class="col-sm-3">Produkt</th>
+          <th class="col-sm-6">Produkt</th>
+          <th class="col-sm-3">Edytuj</th>
         </tr>
       </thead>
       <tbody>
         <% @products.each do |p| %>
           <tr>
-            <td><%= p.name %></td>
+            <td class="col-sm-6"><%= p.name %></td>
+            <td class="col-sm-3"><%= link_to 'Edytuj', edit_product_url(p) %></td>
           </tr>
         <% end %>
       </tbody>
