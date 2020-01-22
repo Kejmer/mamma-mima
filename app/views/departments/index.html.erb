@@ -9,13 +9,14 @@
     <table>
       <thead>
         <tr>
-          <th class="col-sm-3">Miasto</th>
-          <th class="col-sm-2">Dzielnica</th>
+          <th class="col-sm-2">Miasto</th>
+          <th class="col-sm-1">Dzielnica</th>
           <th class="col-sm-3">Street</th>
-          <th class="col-sm-2">Przychody</th>
-          <th class="col-sm-2">Wydatki</th>
-          <th class="col-sm-2">Dochód</th>
-          <th class="col-sm-2">Peczar</th>
+          <th class="col-sm-1">Przychody</th>
+          <th class="col-sm-1">Wydatki</th>
+          <th class="col-sm-1">Dochód</th>
+          <th class="col-sm-2">Stan składników</th>
+          <th class="col-sm-2"></th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +28,7 @@
             <td><%= dept.profits %></td>
             <td><%= dept.expenses %></td>
             <td><%= dept.profits - dept.expenses %></td>
+            <td><%= link_to 'Składniki', '/products/department/' + dept.id.to_s %></td>
             <td><%= link_to 'Edytuj', edit_department_path(dept.id) %></td>
           </tr>
         <% end %>

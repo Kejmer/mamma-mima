@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :delivery]
 
   def index
     @products = Product.order(name: :asc)
@@ -31,6 +31,19 @@ class ProductsController < ApplicationController
     else
       render action: 'edit'
     end
+  end
+
+  def warehouse
+    @department = Department.find(params[:dept_id])
+    @products = Availability.where(department_id: @department.id)
+    render :warehouse
+  end
+
+  def delivery
+    # @department = Department.find(params[:dept_id])
+    return if params[:quantity] == 0
+    @product.deliver(params[:dept_id], params[:quantity].to_i)
+    redirect_to action: "warehouse", dept_id: params[:dept_id]
   end
 
   private

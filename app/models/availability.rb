@@ -10,4 +10,8 @@ class Availability < ApplicationRecord
   def non_negative_ammount
     self.ammount >= 0
   end
+
+  def self.get_it(dept_id, product_id)
+    Availability.where(department_id: dept_id, product_id: product_id).first
+  end
 end
