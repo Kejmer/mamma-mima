@@ -12,12 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_01_14_174444) do
 
-  create_table "availability", id: false, force: :cascade do |t|
+  create_table "availabilities", id: false, force: :cascade do |t|
     t.integer "ammount", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.integer "department_id"
     t.integer "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["department_id"], name: "index_availabilities_on_department_id"
+    t.index ["product_id"], name: "index_availabilities_on_product_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -34,8 +36,7 @@ ActiveRecord::Schema.define(version: 2020_01_14_174444) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_products_on_name", unique: true
   end
 
-  add_foreign_key "availability", "departments"
-  add_foreign_key "availability", "products"
 end

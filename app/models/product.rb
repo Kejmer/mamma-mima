@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  has_many :availabilities
+  has_many :availabilities, dependent: :destroy
 
   validates :name, presence: true
 
@@ -8,7 +8,7 @@ class Product < ApplicationRecord
   def create_new_associations
     depts = Department.all
     depts.each do |d|
-      Availability.create!(ammount: 0, product: self, department: d)
+      Availability.create(department_id: d.id, product_id: self.id)
     end
   end
 end

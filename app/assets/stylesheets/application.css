@@ -34,6 +34,10 @@ textarea.form-control {
   background: linear-gradient(#93cede, #49a5bf);
 }
 
+.btn {
+  margin: 3px;
+}
+
 .content.wide-content {
   margin-left: 0;
   border-radius: 0;

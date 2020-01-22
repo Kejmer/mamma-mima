@@ -1,17 +1,17 @@
 class ProductsController < ApplicationController
   def index
-    @products = Products.all
+    @products = Product.all
   end
 
   def show
   end
 
   def new
-    @product = Prodcuct.new
+    @product = Product.new
   end
 
   def create
-    @product = Prodcuct.new(permitted_params(:product))
+    @product = Product.new(permitted_params(:product))
     if @product.save
       redirect_to product_url
     else
