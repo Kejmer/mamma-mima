@@ -4,11 +4,11 @@ class Availability < ApplicationRecord
   belongs_to :department, required: true
   belongs_to :product, required: true
 
-  validates :ammount, presence: true
-  validate :non_negative_ammount
+  validates :amount, presence: true
+  validate :non_negative_amount
 
-  def non_negative_ammount
-    self.ammount >= 0
+  def non_negative_amount
+    errors.add(:amount, 'Nie moze byc ujemne') unless self.ammount >= 0
   end
 
   def self.get_it(dept_id, product_id)

@@ -18,7 +18,7 @@ class Product < ApplicationRecord
 
   def deliver(dept_id, quantity)
     av = availability_in_dept(dept_id)
-    av.ammount += quantity
+    av.amount += quantity
     av.save
   end
 end
