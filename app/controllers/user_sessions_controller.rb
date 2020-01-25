@@ -1,12 +1,13 @@
 class UserSessionsController < ApplicationController
   def new
     @user_session = UserSession.new
+    @department = Department.new
   end
 
   def create
-    @user_session = UserSession.new(user_session_params)
+    @user_session = UserSession.new(user_session_params.to_h)
     if @user_session.save
-      redirect_to account_url
+      redirect_to home_url
     else
       render :action => :new
     end
@@ -14,7 +15,10 @@ class UserSessionsController < ApplicationController
 
   def destroy
     current_user_session.destroy
-    redirect_to new_user_session_url
+    redirect_to home_url
+  end
+
+  def index
   end
 
   private

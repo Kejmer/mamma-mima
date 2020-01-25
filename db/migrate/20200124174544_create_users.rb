@@ -43,5 +43,15 @@ class CreateUsers < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    User.create({
+      name: "admin",
+      email: "a@min.pl",
+      password: "adminbazy",
+      position: "admin",
+      active: true,
+      approved: true,
+      confirmed: true
+    })
   end
 end

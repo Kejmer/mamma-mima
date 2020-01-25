@@ -1,5 +1,9 @@
 class DashboardController < ApplicationController
-  def index
+  def admin_controller
+  end
+
+  def home
+
   end
 
 end
