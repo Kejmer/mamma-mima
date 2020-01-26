@@ -1,42 +1,59 @@
 class Order < ApplicationRecord
-  has_many :positions, dependent: :delete_all
+  has_many :order_positions, dependent: :delete_all
 
-  validates :name, presence: true
-  validates :price, presence: true
+  validates :receive_form, :address, :status, presence: true
+  validates :status, presence: true
 
-  validate :non_negative_amount
+  belongs_to :department, required: true
 
-  accepts_nested_attributes_for :recipes
+  accepts_nested_attributes_for :order_positions
 
-  def non_negative_amount
-    errors.add(:price, 'Nie moze byc ujemne') unless self.price >= 0
+  validate :validate_receive
+  validate :validate_status
+
+  before_create :set_price
+  before_create :consume_products
+
+  RECEIVE_TYPE = %i(onsite deliver personal)
+  STATUS_TYPE = %i(done delivery prepared cancelled ordered rejected)
+  FINAL_STATUS = %i(done rejected)
+
+  def pizza_collection
+    pizzas = []
+    self.order_positions.each do |pos|
+      pizzas << pos.pizza_formated
+    end
+    pizzas
   end
 
-  def full_recipe
-    collected_recipe = {}
-    self.recipes.each do |r|
-      collected_recipe[r.name] = r.amount
+  def validate_status
+    self.status.in?(STATUS_TYPE)
+  end
+
+  def validate_receive
+    self.receive_form.in?(RECEIVE_TYPE)
+  end
+
+  def set_price
+    self.price = 0
+    self.order_positions.each do |pos|
+      self.price += pos.pizza_formated.price * pos.amount
+    end
+    return self.price > 0
+  end
+
+  def final?
+    self.status.in?(FINAL_STATUS)
+  end
+
+  def restore_products
+    pizza_collection do |pizza|
+      pizza.reverse(self.department.id)
     end
   end
 
-  def self.all_products(pizzas)
-    result = {}
-    pizzas.each do |piz|
-      piz.recipes.each do |rec|
-        result[rec[:product_id]] ||= 0
-        result[rec[:product_id]] += rec[:amount]
-      end
-    end
-    result
-  end
-
-  def self.consume(pizzas, dept)
-    products = all_products(pizzas)
-    Availability.transaction do
-      products.each do |key, val|
-        dept.decrease_product(key, val)
-      end
-    end
+  def consume_products
+    Pizza.consume(pizza_collection, self.department)
   end
 
 end

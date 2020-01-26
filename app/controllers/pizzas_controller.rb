@@ -21,7 +21,7 @@ class PizzasController < ApplicationController
     end
   end
 
-  def edit
+  def edit #blokować w godzinach działania restauracji
     @products = Product.all
     (10 - @pizza.recipes.size).times {@pizza.recipes.build}
   end

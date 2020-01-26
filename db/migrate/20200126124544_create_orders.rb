@@ -2,6 +2,7 @@ class CreateOrders < ActiveRecord::Migration[6.0]
   def change
     create_table :orders do |t|
       t.integer :price, scale: 2, null: false
+      t.references :department
       t.string :address
       t.string :receive_form
       t.string :status

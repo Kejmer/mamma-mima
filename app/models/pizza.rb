@@ -39,4 +39,10 @@ class Pizza < ApplicationRecord
     end
   end
 
+  def reverse(dept_id)
+    self.recipes.each do |r|
+      Availability.get_it(dept_id, r.product.id).decrease_product(r.amount)
+    end
+  end
+
 end

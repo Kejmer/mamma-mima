@@ -1,0 +1,32 @@
+<%= form_with model: @order do |f| %>
+  <div class="row">
+    <div class="col-sm-2">
+      <%= f.label :address %><br />
+      <%= f.text_area :address, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-1">
+      <%= f.label :receive_form %><br />
+      <%= f.select :receive_form, options_for_select(Order::RECEIVE_TYPE) %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.label :department %><br />
+      <%= f.select :department_id, options_for_select(Department.all.map{|d|[d.introduce, d.id]}) %>
+    </div>
+  </div>
+  <%= f.fields_for :order_positions do |pos| %>
+    <div class="row">
+      <div class="col-sm-2">
+        <%= pos.label :pizza %><br />
+        <%#= recipe.select :product_id, options_for_select(@products.map{|p|[p.name, p.id]}) %>
+        <%= pos.collection_select(:pizza_id, @pizzas, :id, :name, :include_blank => true) %>
+      </div>
+      <div class="col-sm-1">
+        <%= pos.label :amount %><br />
+        <%= pos.number_field :amount %>
+      </div>
+    </div>
+  <% end %>
+  <br /><br />
+  <%= f.submit 'Potwierdź zamówienie', :class => "btn-glow btn" %>
+<% end %>
+

@@ -10,6 +10,16 @@ Rails.application.routes.draw do
 
   resources :pizzas
 
+  resources :orders do
+    member do
+      post :accept
+      post :finalize
+      post :reject
+      post :deliver
+    end
+  end
+
+
   match '/products/department/:dept_id', :to => 'products#warehouse', :via => :get, as: 'warehouse'
   match '/products/:id/delivery/:dept_id', :to => 'products#delivery', :via => :post, as: 'delivery'
 

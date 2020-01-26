@@ -1,7 +1,8 @@
 class Department < ApplicationRecord
-  has_many :availabilities, dependent: :destroy
+  has_many :availabilities, dependent: :delete_all
+  has_many :orders, dependent: :delete_all
 
-  validates :city, :street, presence: true
+  validates :city, :street, :status, :price, presence: true
 
   after_create :create_new_associations
 
@@ -14,5 +15,11 @@ class Department < ApplicationRecord
 
   def decrease_product(product_id, amount)
     self.availabilities.where(product_id: product_id).first.decrease_product(amount)
+  end
+
+  def introduce
+    str = self.city + ", "
+    str += self.district + ", " if self.district.present?
+    str += self.street
   end
 end

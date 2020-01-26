@@ -21,4 +21,9 @@ class Availability < ApplicationRecord
     self.amount -= amount
     raise ActiveRecord::Rollback unless self.save
   end
+
+  def increase_product(amount)
+    self.amount += amount
+    self.save
+  end
 end
