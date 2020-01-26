@@ -15,7 +15,8 @@ class Availability < ApplicationRecord
     Availability.where(department_id: dept_id, product_id: product_id).first
   end
 
-  def decrease(amount)
+  def decrease_product(amount)
+    raise ActiveRecord::Rollback if self.amount < amount
     self.amount -= amount
     self.save
   end

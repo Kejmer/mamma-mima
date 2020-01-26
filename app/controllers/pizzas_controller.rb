@@ -42,6 +42,7 @@ class PizzasController < ApplicationController
   def pizza_params
     param = params.require(:pizza).permit(:name, :price, recipes_attributes: [ :product_id, :amount ])
     r_attr = param[:recipes_attributes].select {|key, recipe| recipe[:amount].present? && recipe[:amount].to_i > 0 }
+
     r_proc = {}
     r_attr.each do |inx, val|
       r_proc[val[:product_id]] ||= 0

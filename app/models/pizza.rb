@@ -34,8 +34,9 @@ class Pizza < ApplicationRecord
     products = all_products(pizzas)
     Availability.transaction do
       products.each do |key, val|
-        dept.decrease(key, val)
+        dept.decrease_product(key, val)
       end
     end
   end
+
 end
