@@ -13,8 +13,6 @@ class Department < ApplicationRecord
   end
 
   def decrease_product(product_id, amount)
-    puts "HELP"
-    ava = self.availabilities.where(product_id: product_id).first
-    ava.decrease_product(amount)
+    self.availabilities.where(product_id: product_id).first.decrease_product(amount)
   end
 end

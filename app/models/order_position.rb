@@ -1,4 +1,4 @@
-class Recipe < ApplicationRecord
+class OrderPosition < ApplicationRecord
   self.primary_keys = :product_id, :pizza_id
 
   belongs_to :product, required: true

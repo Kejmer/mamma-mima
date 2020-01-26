@@ -7,6 +7,8 @@ class Availability < ApplicationRecord
   validates :amount, presence: true
   validate :non_negative_amount
 
+  validates_uniqueness_of :department_id, :scope => [:product_id]
+
   def non_negative_amount
     errors.add(:amount, 'Nie moze byc ujemne') unless self.amount >= 0
   end
@@ -16,8 +18,7 @@ class Availability < ApplicationRecord
   end
 
   def decrease_product(amount)
-    raise ActiveRecord::Rollback if self.amount < amount
     self.amount -= amount
-    self.save
+    raise ActiveRecord::Rollback unless self.save
   end
 end
