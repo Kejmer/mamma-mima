@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :departments
 
+  resources :pizzas
+
   match '/products/department/:dept_id', :to => 'products#warehouse', :via => :get, as: 'warehouse'
   match '/products/:id/delivery/:dept_id', :to => 'products#delivery', :via => :post, as: 'delivery'
 

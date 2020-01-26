@@ -19,7 +19,7 @@
         <% @products.each do |p| %>
           <tr>
             <td><%= p.product.name %></td>
-            <td><%= p.ammount %></td>
+            <td><%= p.amount %></td>
             <td>
               <%= form_with(url: "/products/#{p.product.id}/delivery/#{params[:dept_id]}", method: "post") do %>
                 <%= number_field_tag(:quantity, 0) %>

@@ -1,0 +1,27 @@
+<%= form_with model: @pizza do |f| %>
+  <div class="row">
+    <div class="col-sm-2">
+      <%= f.label :name %>
+      <%= f.text_area :name, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.label :price %>
+      <%= f.text_area :price, :class => 'form-control' %>
+    </div>
+  </div>
+  <%= f.fields_for :recipes do |recipe| %>
+    <div class="row">
+      <div class="col-sm-2">
+        <%= recipe.label :product %><br />
+        <%#= recipe.select :product_id, options_for_select(@products.map{|p|[p.name, p.id]}) %>
+        <%= recipe.collection_select(:product_id, @products, :id, :name) %>
+      </div>
+      <div class="col-sm-1">
+        <%= recipe.label :amount %><br />
+        <%= recipe.number_field :amount %>
+      </div>
+    </div>
+  <% end %>
+  <%= f.submit 'Zapisz', :class => "btn-glow btn" %>
+<% end %>
+

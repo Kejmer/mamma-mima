@@ -11,4 +11,9 @@ class Department < ApplicationRecord
       Availability.create(department_id: self.id, product_id: p.id)
     end
   end
+
+  def decrease_product(product_id, amount)
+    ava = self.availabilities.where(product_id: product_id)
+    ava.decrease(amount)
+  end
 end

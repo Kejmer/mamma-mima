@@ -8,7 +8,7 @@ class Recipe < ApplicationRecord
   validate :non_negative_amount
 
   def non_negative_amount
-    errors.add(:amount, 'Nie moze byc ujemne') unless self.ammount >= 0
+    errors.add(:amount, 'Nie moze byc ujemne') unless self.amount >= 0
   end
 
 end

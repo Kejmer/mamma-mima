@@ -2,9 +2,11 @@
 
   <div id="pad-wrapper">
 
-    <div class="row">
-      <%= link_to 'Nowy oddział', new_department_path, :class => 'btn-glow btn blue' %>
-    </div>
+    <% if current_user.admin? %>
+      <div class="row">
+        <%= link_to 'Nowy oddział', new_department_path, :class => 'btn-glow btn blue' %>
+      </div>
+    <% end %>
 
     <table>
       <thead>
@@ -16,7 +18,7 @@
           <th class="col-sm-1">Wydatki</th>
           <th class="col-sm-1">Dochód</th>
           <th class="col-sm-2">Stan składników</th>
-          <th class="col-sm-2"></th>
+          <% if current_user.admin? %><th class="col-sm-2"></th><% end %>
         </tr>
       </thead>
       <tbody>
@@ -28,8 +30,12 @@
             <td><%= dept.profits %></td>
             <td><%= dept.expenses %></td>
             <td><%= dept.profits - dept.expenses %></td>
-            <td><%= link_to 'Składniki', '/products/department/' + dept.id.to_s %></td>
-            <td><%= link_to 'Edytuj', edit_department_path(dept.id) %></td>
+            <% if current_user.admin? || current_user.department_id == dept.id %>
+              <td><%= link_to 'Składniki', '/products/department/' + dept.id.to_s %></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if current_user.admin? %><td><%= link_to 'Edytuj', edit_department_path(dept.id) %></td><% end %>
           </tr>
         <% end %>
       </tbody>

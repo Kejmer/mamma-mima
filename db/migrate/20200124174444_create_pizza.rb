@@ -11,8 +11,6 @@ class CreatePizza < ActiveRecord::Migration[6.0]
       t.integer :amount, null: false
       t.references :product
       t.references :pizza
-
-      t.timestamps
     end
 
   end

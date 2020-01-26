@@ -1,0 +1,36 @@
+<div class="content wide-content">
+
+  <div id="pad-wrapper">
+
+    <% if admin? %>
+      <%= link_to 'Nowa pizza', new_pizza_path, :class => 'btn-glow btn blue' %>
+    <% end %>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="col-sm-2">Pizza</th>
+          <th class="col-sm-3">Obrazek</th>
+          <th class="col-sm-3">Cena</th>
+          <% if admin? %>
+            <th class="col-sm-1"></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pizzas.each do |piz| %>
+          <tr>
+            <td><%= piz.name %></td>
+            <td><%= "Obrazek" %></td>
+            <td><%= piz.price %></td>
+            <% if admin? %>
+              <td><%= link_to 'Edytuj', edit_pizza_path(piz.id) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+

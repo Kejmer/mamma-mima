@@ -8,10 +8,15 @@ class Availability < ApplicationRecord
   validate :non_negative_amount
 
   def non_negative_amount
-    errors.add(:amount, 'Nie moze byc ujemne') unless self.ammount >= 0
+    errors.add(:amount, 'Nie moze byc ujemne') unless self.amount >= 0
   end
 
   def self.get_it(dept_id, product_id)
     Availability.where(department_id: dept_id, product_id: product_id).first
+  end
+
+  def decrease(amount)
+    self.amount -= amount
+    self.save
   end
 end
