@@ -11,6 +11,7 @@
           <th class="col-sm-1">Nazwisko</th>
           <th class="col-sm-1">Zarobki</th>
           <th class="col-sm-1">Oddział</th>
+          <th class="col-sm-1">Pozycja</th>
           <th class="col-sm-1">Email</th>
         </tr>
       </thead>
@@ -20,6 +21,7 @@
             <td><%= u.name %></td>
             <td><%= u.lastname %></td>
             <td><%= u.salary %></td>
+            <td><%= u.position %></td>
             <td><%= u.department.introduce if u.department_id.present? %></td>
             <td><%= u.email %></td>
           </tr>

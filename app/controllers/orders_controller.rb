@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
 
   before_action :set_order, only: [:show, :edit, :update, :destroy, :accept, :deliver, :finalize, :reject]
+  skip_before_action :require_user, only: [:new, :create]
 
   def index
     @orders = Order.active

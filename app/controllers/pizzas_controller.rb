@@ -1,6 +1,8 @@
 class PizzasController < ApplicationController
 
   before_action :set_pizza, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
+  skip_before_action :require_user, only: [:index]
 
   def index
     @pizzas = Pizza.order(name: :asc)
