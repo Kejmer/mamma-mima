@@ -5,3 +5,10 @@ pl:
         city: Miasto
         district: Dzielnica
         street: Ulica
+      order:
+        status:
+          delivery: 'Dostawa'
+          prepared: 'W przygotowaniu'
+          done: Zakończone
+          rejected: Odrzucone
+          ordered: Zamówione

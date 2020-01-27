@@ -1,1 +1,41 @@
-show.html.erb
+<div class="content wide-content">
+
+  <div id="pad-wrapper">
+    <div class="row header">
+      <div class="col-sm-12">
+        <h3>Zamówienie nr <%= @order.id %></h3><br>
+        <p><%= tt("order.status.#{@order.status}") %></p>
+      </div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="col-sm-1">Pizza</th>
+        <th class="col-sm-1">Ilość</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_positions.each do |pos| %>
+        <tr>
+          <td><%= pos.pizza.name %></td>
+          <td><%= pos.amount %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br />
+  <br />
+  <% case @order.status %>
+  <% when 'ordered' %>
+    <%= link_to 'Zaakceptuj', accept_order_path(@order.id), :class => 'btn-glow btn blue', method: :post %>
+    <%= link_to 'Odmów', reject_order_path(@order.id), :class => 'btn-glow btn red', method: :post %>
+  <% when 'prepared' %>
+    <%= link_to 'Delivery', deliver_order_path(@order.id), :class => 'btn-glow btn blue', method: :post %>
+  <% when 'delivery' %>
+    <%= link_to 'Zamknij', finalize_order_path(@order.id), :class => 'btn-glow btn blue', method: :post %>
+  <% end %>
+</div>
+

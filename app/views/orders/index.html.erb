@@ -1,1 +1,33 @@
-index.html.erb
+
+<div class="content wide-content">
+
+  <div id="pad-wrapper">
+
+    <%= link_to 'Dodaj zamówienie', new_order_path, :class => 'btn-glow btn blue' %>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="col-sm-2">Pizza</th>
+          <th class="col-sm-2">Adres</th>
+          <th class="col-sm-1">Cena</th>
+          <th class="col-sm-1">Gdzie</th>
+          <th class="col-sm-1">Zobacz</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |ord| %>
+          <tr style="<%= set_background(ord.status) %>">
+            <td><%= ord.created_at.strftime("%d.%m %T") %></td>
+            <td><%= ord.address %></td>
+            <td><%= ord.price %></td>
+            <td><%= ord.receive_form %></td>
+            <td><%= link_to 'Szczegóły', order_path(ord.id), class: 'btn' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+

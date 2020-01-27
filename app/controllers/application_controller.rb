@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+  before_action :require_user
+
   def default_unpermitted_params
     [:id, :created_at, :updated_at]
   end
@@ -40,6 +43,22 @@ class ApplicationController < ActionController::Base
       current_user_session.destroy
     end
     redirect_to root_url
+  end
+
+  def admin?
+    current_user&.admin?
+  end
+
+  def require_user
+    redirect_to home_url unless current_user.present?
+  end
+
+  def require_admin
+    redirect_to home_url unless admin?
+  end
+
+  def require_menager
+    redirect_to home_url unless current_user.position == "menager" || admin?
   end
 
 end

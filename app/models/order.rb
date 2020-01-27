@@ -1,8 +1,7 @@
 class Order < ApplicationRecord
   has_many :order_positions, dependent: :delete_all
 
-  validates :receive_form, :address, :status, presence: true
-  validates :status, presence: true
+  validates :receive_form, :status, presence: true
 
   belongs_to :department, required: true
 
@@ -10,12 +9,16 @@ class Order < ApplicationRecord
 
   validate :validate_receive
   validate :validate_status
+  validate :present_address
 
   before_create :set_price
   before_create :consume_products
 
-  RECEIVE_TYPE = %i(onsite deliver personal)
-  STATUS_TYPE = %i(done delivery prepared cancelled ordered rejected)
+  scope :active, -> { where('status IN ("deliver", "ordered", "prepared")')}
+
+  RECEIVE_TYPE_USER = %w(deliver personal)
+  RECEIVE_TYPE = %w(deliver personal onsite)
+  STATUS_TYPE = %w(done delivery prepared ordered rejected)
   FINAL_STATUS = %i(done rejected)
 
   def pizza_collection
@@ -27,11 +30,15 @@ class Order < ApplicationRecord
   end
 
   def validate_status
-    self.status.in?(STATUS_TYPE)
+    errors.add(:status, 'Niedozwolony typ') unless self.status.in?(STATUS_TYPE)
   end
 
   def validate_receive
-    self.receive_form.in?(RECEIVE_TYPE)
+    errors.add(:receive_form, 'Niedozwolony typ') unless self.receive_form.in?(RECEIVE_TYPE)
+  end
+
+  def present_address
+    errors.add(:address, 'Musi być obecny') unless self.address.present? && self.receive_form == 'deliver'
   end
 
   def set_price

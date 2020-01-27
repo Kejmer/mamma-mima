@@ -1,8 +1,9 @@
 class Department < ApplicationRecord
   has_many :availabilities, dependent: :delete_all
   has_many :orders, dependent: :delete_all
+  has_many :users
 
-  validates :city, :street, :status, :price, presence: true
+  validates :city, :street, presence: true
 
   after_create :create_new_associations
 

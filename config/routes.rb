@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :pizzas
 
+  resources :users
+
   resources :orders do
     member do
       post :accept

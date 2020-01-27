@@ -23,6 +23,12 @@
           <a class="nav-link" href="/pizzas">Pizze</a>
         </li>
 
+        <% if current_user&.position == "menager" %>
+          <li class="nav-item">
+            <a class="nav-link " href="/products/department/<%=current_user.department_id%>" tabindex="-1" aria-disabled="true">Oddział</a>
+          </li>
+        <% end %>
+
         <% if current_user.present? %>
           <li class="nav-item">
             <a class="nav-link " href="/orders" tabindex="-1" aria-disabled="true">Zamówienia</a>
@@ -47,10 +53,6 @@
         <% end %>
 
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
     </div>
   </nav>
 

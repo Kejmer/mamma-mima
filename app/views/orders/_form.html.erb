@@ -6,7 +6,7 @@
     </div>
     <div class="col-sm-1">
       <%= f.label :receive_form %><br />
-      <%= f.select :receive_form, options_for_select(Order::RECEIVE_TYPE) %>
+      <%= f.select :receive_form, options_for_select(current_user.present? ? Order::RECEIVE_TYPE : Order::RECEIVE_TYPE_USER) %>
     </div>
     <div class="col-sm-2">
       <%= f.label :department %><br />

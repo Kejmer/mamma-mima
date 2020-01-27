@@ -1,4 +1,6 @@
 class UserSessionsController < ApplicationController
+  skip_before_action :require_user, only: [:create, :new]
+
   def new
     @user_session = UserSession.new
     @department = Department.new

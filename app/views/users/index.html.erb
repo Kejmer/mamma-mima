@@ -1,0 +1,32 @@
+<div class="content wide-content">
+
+  <div id="pad-wrapper">
+
+    <%= link_to 'Nowy pracownik', new_user_path, :class => 'btn-glow btn blue' %>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="col-sm-1">Imię</th>
+          <th class="col-sm-1">Nazwisko</th>
+          <th class="col-sm-1">Zarobki</th>
+          <th class="col-sm-1">Oddział</th>
+          <th class="col-sm-1">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |u| %>
+          <tr>
+            <td><%= u.name %></td>
+            <td><%= u.lastname %></td>
+            <td><%= u.salary %></td>
+            <td><%= u.department.introduce if u.department_id.present? %></td>
+            <td><%= u.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+

@@ -3,6 +3,18 @@ class User < ApplicationRecord
     c.log_in_after_create = false
   end
 
+  POSSIBLE_POSITIONS = %w(admin employee menager)
+
+  belongs_to :department
+
+  validates :name, :lastname, :salary, :position, presence: true
+  validate :non_negative_salary
+
+  def non_negative_salary
+    errors.add(:salary, 'Musi być dodatnie') unless self.salary > 0
+  end
+
+
   # Validate email, login, and password as you see fit.
   #
   # Authlogic < 5 added these validation for you, making them a little awkward

@@ -3,7 +3,11 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy, :accept, :deliver, :finalize, :reject]
 
   def index
-    @orders = Order.order(city: :asc)
+    @orders = Order.active
+    unless admin?
+      @orders = @orders.where(department_id: current_user.department_id) unless admin?
+    end
+    @orders = @orders.order(created_at: :asc)
   end
 
   def show
@@ -16,13 +20,12 @@ class OrdersController < ApplicationController
   end
 
   def create
-    # byebug
     @order = Order.new(order_params)
     @order.status = 'ordered'
     if @order.save
       redirect_to home_url
     else
-      render action: 'new'
+      redirect_to new_order_url
     end
   end
 
@@ -35,7 +38,7 @@ class OrdersController < ApplicationController
     if @order.update_attributes(order_params)
       redirect_to order
     else
-      render action: 'edit'
+      redirect_to edit_order_url
     end
   end
 
@@ -44,8 +47,8 @@ class OrdersController < ApplicationController
       flash[:notice] = "Tego zamówienia nie można już zmienić"
       return false
     end
-    @order.status = 'prepared'
-    @order.save
+    @order.update_column(:status, 'prepared')
+    redirect_to order_path(@order.id)
   end
 
   def deliver
@@ -53,8 +56,8 @@ class OrdersController < ApplicationController
       flash[:notice] = "Tego zamówienia nie można już zmienić"
       return false
     end
-    @order.status = 'delivery'
-    @order.save
+    @order.update_column(:status, 'delivery')
+    redirect_to order_path(@order.id)
   end
 
   def finalize
@@ -62,10 +65,10 @@ class OrdersController < ApplicationController
       flash[:notice] = "Tego zamówienia nie można już zmienić"
       return false
     end
-    @order.status = 'done'
-    @order.save
-    @order.department.earnings += @order.price
+    @order.update_column(:status, 'done')
+    @order.department.profits += @order.price
     @order.department.save
+    redirect_to orders_path
   end
 
   def reject
@@ -80,11 +83,12 @@ class OrdersController < ApplicationController
 
     @order.status = 'rejected'
     @order.save
+    redirect_to orders_path
   end
 
   private
 
-  def set_dept
+  def set_order
     @order = Order.find(params[:id])
   end
 

@@ -1,0 +1,36 @@
+<%= form_with model: @user do |f| %>
+  <div class="row">
+    <div class="col-sm-3">
+      <%= f.label :name %><br />
+      <%= f.text_area :name, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :lastname %><br />
+      <%= f.text_area :lastname, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :salary %><br />
+      <%= f.number_field :salary, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :position %><br />
+      <%= f.select :position, options_for_select(User::POSSIBLE_POSITIONS)  %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <%= f.label :email %><br />
+      <%= f.text_area :email, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :department %><br />
+      <%= f.select :department_id, options_for_select(Department.all.map{|d|[d.introduce, d.id]}) %>
+    </div>
+  </div>
+  <%= f.submit 'Zapisz', :class => "btn-glow btn" %>
+
+<% end %>
