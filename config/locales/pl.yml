@@ -12,3 +12,29 @@ pl:
           done: Zakończone
           rejected: Odrzucone
           ordered: Zamówione
+        address: Adres
+        department: Restauracja
+        receive_form: Sposób odbioru
+        pizza: Pizza
+        amount: Liczba
+      user:
+        name: Imie
+        lastname: Nazwisko
+        position: Pozycja
+        email: Adres mailowy
+        password: Hasło
+        salary: Zarobki
+        department: Oddział
+      pizza:
+        name: Nazwa
+        price: Cena
+      recipe:
+        product: Składnik
+        amount: Ilość
+      product:
+        name: Nazwa
+      user_session:
+        email: Mail
+        password: Hasło
+
+
